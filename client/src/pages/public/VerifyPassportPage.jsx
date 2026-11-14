@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import api from '../../services/api';
-import { FiCheckCircle, FiAlertTriangle, FiActivity, FiCalendar, FiUser, FiPhone, FiHospital } from 'react-icons/fi';
+import { FiCheckCircle, FiAlertTriangle, FiActivity, FiCalendar, FiUser, FiPhone } from 'react-icons/fi';
 
 export const VerifyPassportPage = () => {
   const { token } = useParams();
