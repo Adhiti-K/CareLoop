@@ -9,6 +9,7 @@ const path = require('path');
 dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const { testConnection } = require('./config/db');
+const authRoutes = require('./routes/authRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -77,6 +78,9 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
+// Authentication & Access Control Routes
+app.use('/api/auth', authRoutes);
+
 // 404 Handler
 app.use((req, res, next) => {
   res.status(404).json({
@@ -104,6 +108,7 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(` Port: ${PORT}`);
     console.log(` Environment: ${NODE_ENV}`);
     console.log(` Health-check: http://localhost:${PORT}/api/health`);
+    console.log(` Auth endpoints: http://localhost:${PORT}/api/auth`);
     console.log(`====================================================`);
 
     const dbCheck = await testConnection();
