@@ -10,6 +10,8 @@ dotenv.config({ path: path.resolve(__dirname, '.env') });
 
 const { testConnection } = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
+const dischargeRoutes = require('./routes/dischargeRoutes');
+const handoverRoutes = require('./routes/handoverRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -78,8 +80,10 @@ app.get('/api/health', async (req, res) => {
   }
 });
 
-// Authentication & Access Control Routes
+// API Routes
 app.use('/api/auth', authRoutes);
+app.use('/api/discharge', dischargeRoutes);
+app.use('/api/handover', handoverRoutes);
 
 // 404 Handler
 app.use((req, res, next) => {
@@ -108,7 +112,9 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(` Port: ${PORT}`);
     console.log(` Environment: ${NODE_ENV}`);
     console.log(` Health-check: http://localhost:${PORT}/api/health`);
-    console.log(` Auth endpoints: http://localhost:${PORT}/api/auth`);
+    console.log(` Auth: http://localhost:${PORT}/api/auth`);
+    console.log(` Discharge: http://localhost:${PORT}/api/discharge`);
+    console.log(` Handover: http://localhost:${PORT}/api/handover`);
     console.log(`====================================================`);
 
     const dbCheck = await testConnection();
