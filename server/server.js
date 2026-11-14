@@ -12,6 +12,7 @@ const { testConnection } = require('./config/db');
 const authRoutes = require('./routes/authRoutes');
 const dischargeRoutes = require('./routes/dischargeRoutes');
 const handoverRoutes = require('./routes/handoverRoutes');
+const passportRoutes = require('./routes/passportRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -84,6 +85,7 @@ app.get('/api/health', async (req, res) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/discharge', dischargeRoutes);
 app.use('/api/handover', handoverRoutes);
+app.use('/api/passport', passportRoutes);
 
 // 404 Handler
 app.use((req, res, next) => {
@@ -115,6 +117,7 @@ if (process.env.NODE_ENV !== 'test') {
     console.log(` Auth: http://localhost:${PORT}/api/auth`);
     console.log(` Discharge: http://localhost:${PORT}/api/discharge`);
     console.log(` Handover: http://localhost:${PORT}/api/handover`);
+    console.log(` Passport: http://localhost:${PORT}/api/passport`);
     console.log(`====================================================`);
 
     const dbCheck = await testConnection();
